@@ -1,12 +1,14 @@
 package com.example.showweather.feature.showweatger.domain.model
 
+import android.os.Parcelable
 import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
 import com.example.showweather.feature.showweatger.domain.model.entity.TempItemModelEntity
+import kotlinx.parcelize.Parcelize
 
-
-class CityItemModel(
+@Parcelize
+data class CityItemModel(
 
     val cityPoint: PointModelEntity?,
-    val main: TempItemModelEntity?,
+    val cityTemp: TempItemModelEntity?,
     val isChecked: Boolean
-)
+): Parcelable

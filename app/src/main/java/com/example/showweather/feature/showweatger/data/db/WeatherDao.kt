@@ -1,6 +1,9 @@
 package com.example.showweather.feature.showweatger.data.db
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
 import com.example.showweather.feature.showweatger.domain.model.entity.TempItemModelEntity
 
@@ -23,13 +26,16 @@ interface WeatherDao {
     fun insert(vararg point: PointModelEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCityAll(points: List<PointModelEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg point: TempItemModelEntity)
 
-    @Delete
-    fun deletePointModel(point: PointModelEntity)
+    @Query("DELETE FROM city_position_table WHERE id = :id")
+    fun deletePointModel(id: String)
 
-    @Delete
-    fun deleteTempItemModel(point: TempItemModelEntity)
+    @Query("DELETE FROM temp_item_table WHERE id = :id")
+    fun deleteTempItemModel(id: String)
 
     @Query("DELETE FROM city_position_table")
     fun deletePointModelAll()

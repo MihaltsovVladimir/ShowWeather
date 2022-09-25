@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="@dimen/country_item_height"
+    android:paddingLeft="@dimen/general_margin"
+    android:paddingRight="@dimen/general_margin">
+
+    <TextView
+        android:id="@+id/city_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/general_margin"
+        android:layout_centerVertical="true"
+        android:textColor="@color/ic_launcher_background"
+        android:textSize="18sp"
+        tools:text="United Kingdom"/>
+
+    <TextView
+        android:id="@+id/temp_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/general_margin"
+        android:layout_centerVertical="true"
+        android:textColor="@color/ic_launcher_background"
+        android:textSize="18sp"
+        tools:text="United Kingdom"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
