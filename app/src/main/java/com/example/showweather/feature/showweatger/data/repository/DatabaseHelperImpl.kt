@@ -1,6 +1,6 @@
 package com.example.showweather.feature.showweatger.data.repository
 
-import android.util.Log
+import android.content.Context
 import com.example.showweather.feature.showweatger.data.db.WeatherDao
 import com.example.showweather.feature.showweatger.data.dto.mapper.map
 import com.example.showweather.feature.showweatger.data.dto.response.WeatherResponse
@@ -12,7 +12,8 @@ import javax.inject.Inject
 
 class DatabaseHelperImpl @Inject constructor(
 
-    private val weatherDao: WeatherDao
+    private val weatherDao: WeatherDao,
+    private val context: Context
 ) : DatabaseHelper {
 
     override suspend fun getWeatherModel(): ShowWeatherModel {
@@ -27,9 +28,13 @@ class DatabaseHelperImpl @Inject constructor(
 
     override suspend fun getPointModelAll(): List<PointModelEntity> = weatherDao.getPointModelAll()
 
+    override suspend fun savePositionSpinner(listItems: List<CityItemModel>) {
+        //todo save to db here
+    }
+
     override suspend fun insertData(response: WeatherResponse, point: PointModelEntity) {
         weatherDao.insert(response.coord.map(point.name, point.id))
-        weatherDao.insert(response.main.map(point.id))
+        weatherDao.insert(response.main.map(point.id, context))
     }
 
     override suspend fun deleteItemWithId(id: String) {
@@ -41,7 +46,6 @@ class DatabaseHelperImpl @Inject constructor(
         weatherDao.deletePointModelAll()
         weatherDao.deleteTempItemModelAll()
     }
-
 
     private fun getShowWeatherModel(
         points: List<PointModelEntity>,
@@ -57,9 +61,6 @@ class DatabaseHelperImpl @Inject constructor(
                     isChecked = false
                 )
             )
-        }
-        listResult.forEach {
-            Log.e("TAG", "listResult cityTemp: ${it.cityTemp?.temp}")
         }
         return ShowWeatherModel(listItems = listResult)
     }

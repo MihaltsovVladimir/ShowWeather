@@ -9,5 +9,4 @@ import dagger.hilt.android.HiltAndroidApp
 class App : Application(), ContextProvider {
 
     override fun getModifiedApplicationContext(): Context  = applicationContext
-
 }

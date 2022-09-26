@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ListView
-import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.showweather.R
 import com.example.showweather.databinding.ShowSpinnerFragmentBinding
 import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
 import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
-import com.example.showweather.feature.showweatger.presentation.adapter.CountryAdapter
 import com.example.showweather.feature.showweatger.presentation.adapter.MyCustomSpinnerAdapter
 import com.example.showweather.feature.showweatger.presentation.viewmodel.ShowWeatherViewModel
 import com.example.showweather.util.launchAndRepeatWithViewLifecycle
@@ -25,9 +23,6 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
     override val viewModel: ShowWeatherViewModel by activityViewModels()
 
     var adapter: MyCustomSpinnerAdapter? = null
-    var adapterCountry: CountryAdapter? = null
-    var popupWindow: PopupWindow? = null
-
 
     override fun createViewBinding(
         inflater: LayoutInflater,
@@ -40,12 +35,7 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
     }
 
     override fun initForm() {
-        val listCity = listOf(
-            PointModelEntity(UUID.randomUUID().toString(), "Gomel", "52.353917", "31.11178144"),
-            PointModelEntity(UUID.randomUUID().toString(), "Minsk", "53.902284", "27.561831"),
-            PointModelEntity(UUID.randomUUID().toString(), "Tokio", "49.088732", "33.413770")
-        )
-        viewModel.addCityToRoom(listCity)
+        viewModel.addCityToRoom(createInitLocality())
     }
 
     override fun onReadyToRequests() {
@@ -56,9 +46,7 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
     override fun subscribe() {
         super.subscribe()
         launchAndRepeatWithViewLifecycle {
-            viewModel.listWeatherStateFlow.collectNotNull() {
-                populateForm(it)
-            }
+            viewModel.listWeatherStateFlow.collectNotNull() { populateForm(it) }
         }
     }
 
@@ -73,49 +61,28 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
                     position: Int,
                     id: Long
                 ) {
-
+                    viewModel.savePositionSpinner(position)
                 }
             }
-//        b.sCountry.setOnClickListener {
-//            popupWindow?.dismiss()
-//            if (popupWindow == null) {
-//                provideCountryPopupWindow(it)
-//            } popupWindow!!.showAsDropDown(it, 0, -it.height)
-//        }
         b.firstFragmentButton.setOnClickListener {
-//            Toast.makeText(context, UUID.randomUUID().toString(), Toast.LENGTH_SHORT).show()
-//            findNavController().navigate(R.id.action_showFragment_to_searchFragment)
+            Toast.makeText(
+                context,
+                context?.resources?.getString(R.string.coming_soon_text_button),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     private fun populateForm(showModel: ShowWeatherModel) {
-        adapterCountry = CountryAdapter(requireContext(),showModel)
-        b.sCountry.adapter = adapter
         if (adapter == null) {
-            adapter = MyCustomSpinnerAdapter(requireContext(), showModel)
+            adapter = context?.let { MyCustomSpinnerAdapter(it, showModel) }
             b.firstFragmentSpinner.adapter = adapter
-        }
+        } else adapter?.updateData(showModel)
     }
 
-
-    private fun provideCountryPopupWindow(it: View) {
-        popupWindow = PopupWindow(it.width, ViewGroup.LayoutParams.WRAP_CONTENT)
-            .apply {
-                val backgroundDrawable = requireActivity().getDrawable(
-                    R.drawable.blue_outline_white_background)
-                setBackgroundDrawable(backgroundDrawable)
-                isOutsideTouchable = true
-                val listView = layoutInflater.inflate(
-                    R.layout.layout_country_dropdown,
-                    null,
-                    false) as ListView
-                listView.adapter = adapterCountry
-                listView.setOnItemClickListener { _, _, position, _ ->
-                    val selectedCountry = adapterCountry!!.getItem(position)!!
-//                    viewModel.setLegalCountry(1)  //todo saved position
-                    popupWindow?.dismiss()
-                }
-                contentView = listView
-            }
-    }
+    private fun createInitLocality(): List<PointModelEntity> = listOf(
+        PointModelEntity(UUID.randomUUID().toString(), "Gomel", "52.353917", "31.11178144"),
+        PointModelEntity(UUID.randomUUID().toString(), "Minsk", "53.902284", "27.561831"),
+        PointModelEntity(UUID.randomUUID().toString(), "Tokio", "49.088732", "33.413770")
+    )
 }

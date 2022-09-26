@@ -8,6 +8,8 @@ interface WeatherApiService {
 
     @GET("weather")
     suspend fun getListWeatherItems(
-        @Query("lat") lat: String, @Query("lon") lon: String, @Query("appid") appid: String
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("appid") appid: String
     ): WeatherResponse
 }

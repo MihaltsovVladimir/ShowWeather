@@ -4,7 +4,12 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ShowWeatherModel(
+class ErrorModel : Parcelable {
 
-    val listItems: List<CityItemModel>
-) : Parcelable
+    enum class ErrorType {
+
+        SERVER_FATAL,
+        CONNECTION_LOST,
+        UNKNOWN
+    }
+}

@@ -13,7 +13,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object CoreModule {

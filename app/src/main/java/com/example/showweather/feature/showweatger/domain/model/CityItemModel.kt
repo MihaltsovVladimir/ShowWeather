@@ -10,5 +10,5 @@ data class CityItemModel(
 
     val cityPoint: PointModelEntity?,
     val cityTemp: TempItemModelEntity?,
-    val isChecked: Boolean
-): Parcelable
+    var isChecked: Boolean
+) : Parcelable
