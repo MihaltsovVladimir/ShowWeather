@@ -1,12 +1,9 @@
 package com.example.showweather.feature.showweatger.presentation.viewmodel
 
-import android.util.Log
 import com.example.showweather.R
-import com.example.showweather.feature.showweatger.data.db.WeatherDao
-import com.example.showweather.feature.showweatger.data.repository.DatabaseRepository
-import com.example.showweather.feature.showweatger.data.repository.NetworkRepository
 import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
 import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
+import com.example.showweather.feature.showweatger.domain.usecase.GetWeatherUseCase
 import com.example.showweather.util.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,8 +16,7 @@ class ShowWeatherViewModel @Inject constructor(
 
     @IoDispatcher
     ioDispatcher: CoroutineDispatcher,
-    private val dataRepository: DatabaseRepository,
-    private val networkRepository: NetworkRepository,
+    private val useCase: GetWeatherUseCase
 ) : BaseViewModel(ioDispatcher) {
 
     private val _listWeatherStateFlow = MutableStateFlow<ShowWeatherModel?>(null)
@@ -28,19 +24,25 @@ class ShowWeatherViewModel @Inject constructor(
         get() = _listWeatherStateFlow
 
     fun addCityToRoom(listCity: List<PointModelEntity>) {
-        launchForm {
-            if (dataRepository.getPointModelAll().isEmpty())
-                 dataRepository.insertPointAll(listCity)
+        launchForm { useCase.addCityToRoom(listCity) }
+    }
+
+    private fun getWeatherFromDatabase() {
+        launchFormInit(_listWeatherStateFlow) {
+            useCase.getWeatherFromDatabase()
         }
+//        launchForm { _listWeatherStateFlow.emit(useCase.getWeatherFromDatabase()) }
+    }
+
+    fun savePositionSpinner(id: String) {
+        launchForm { useCase.savePositionSpinner(id) }
     }
 
     fun getWeather() {
-        launchForm {
-            val listCity = dataRepository.getPointModelAll()
-            Log.e("TAG", "ViewModel size: ${listCity.size}")
-            _listWeatherStateFlow.emit(dataRepository.getShowWeatherModel())
-            networkRepository.getWeather(listCity, context.resources.getString(R.string.api_key))
-            _listWeatherStateFlow.emit(dataRepository.getShowWeatherModel())
+        getWeatherFromDatabase()
+        launchFormInit(_listWeatherStateFlow) {
+            useCase.getWeather(context.resources.getString(R.string.api_key))
         }
+//        launchForm { _listWeatherStateFlow.emit(useCase.getWeather(context.resources.getString(R.string.api_key))) }
     }
 }

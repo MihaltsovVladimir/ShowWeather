@@ -1,7 +1,6 @@
 package com.example.showweather.feature.showweatger.presentation.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,13 @@ import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
 class MyCustomSpinnerAdapter(
 
     private val context: Context,
-    private val weatherModel: ShowWeatherModel
+    private var weatherModel: ShowWeatherModel
 ) : BaseAdapter() {
+
+    fun updateData(newWeatherModel: ShowWeatherModel) {
+        weatherModel = newWeatherModel
+        //todo
+    }
 
     override fun getCount(): Int = weatherModel.listItems.size
 
@@ -23,7 +27,6 @@ class MyCustomSpinnerAdapter(
     override fun getItemId(p0: Int): Long = 0
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-        Log.e("TAG", "getView: ${weatherModel.listItems.size} ", )
         var mConvertView = p1
         if (mConvertView == null) {
             val inflater = LayoutInflater.from(context)

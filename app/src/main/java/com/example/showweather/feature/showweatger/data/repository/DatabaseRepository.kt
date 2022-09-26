@@ -14,4 +14,5 @@ class DatabaseRepository @Inject constructor(
 
     suspend fun getPointModelAll() = helper.getPointModelAll()
 
+    suspend fun savePositionSpinner(id: String) = helper.savePositionSpinner(id)
 }

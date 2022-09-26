@@ -12,6 +12,8 @@ interface DatabaseHelper {
 
     suspend fun getPointModelAll(): List<PointModelEntity>
 
+    suspend fun savePositionSpinner(id: String)
+
     suspend fun insertData(response: WeatherResponse, point: PointModelEntity)
 
     suspend fun deleteItemWithId(id: String)
