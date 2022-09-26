@@ -1,6 +1,5 @@
 package com.example.showweather.feature.showweatger.presentation.fragment
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.showweather.R
 import com.example.showweather.databinding.ShowSpinnerFragmentBinding
+import com.example.showweather.feature.base.presentation.fragment.BaseFragment
 import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
 import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
 import com.example.showweather.feature.showweatger.presentation.adapter.MyCustomSpinnerAdapter
@@ -28,11 +28,6 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = ShowSpinnerFragmentBinding.inflate(inflater, container, false)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setListeners()
-    }
 
     override fun initForm() {
         viewModel.addCityToRoom(createInitLocality())

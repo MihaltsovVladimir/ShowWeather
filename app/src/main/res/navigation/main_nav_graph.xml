@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.showweather.feature.showweatger.presentation.fragment.SearchFragment">
+        android:name="com.example.showweather.feature.searchcity.presentation.fragment.SearchFragment">
         <action
             android:id="@+id/action_searchFragment_to_showFragment"
             app:destination="@id/showFragment" />

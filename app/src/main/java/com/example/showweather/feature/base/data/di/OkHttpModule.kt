@@ -1,4 +1,4 @@
-package com.example.showweather.feature.showweatger.data.di
+package com.example.showweather.feature.base.data.di
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import dagger.Module

@@ -1,4 +1,4 @@
-package com.example.showweather.feature.showweatger.presentation.viewmodel
+package com.example.showweather.feature.base.presentation.viewmodel
 
 import android.annotation.SuppressLint
 import android.content.Context

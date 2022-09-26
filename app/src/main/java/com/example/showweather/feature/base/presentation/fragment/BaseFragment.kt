@@ -1,4 +1,4 @@
-package com.example.showweather.feature.showweatger.presentation.fragment
+package com.example.showweather.feature.base.presentation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,12 @@ import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import com.example.showweather.feature.showweatger.presentation.viewmodel.ShowWeatherViewModel
+import com.example.showweather.feature.base.presentation.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.filterNotNull
 
-abstract class BaseFragment<VM : ShowWeatherViewModel, VB : ViewBinding> : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
 
     private var _binding: VB? = null
     val b get() = _binding!!

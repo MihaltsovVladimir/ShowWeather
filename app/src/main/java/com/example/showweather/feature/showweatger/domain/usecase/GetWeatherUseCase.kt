@@ -7,7 +7,6 @@ import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
 import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
 import javax.inject.Inject
 
-
 class GetWeatherUseCase @Inject constructor(
 
     private val dataRepository: DatabaseRepository,

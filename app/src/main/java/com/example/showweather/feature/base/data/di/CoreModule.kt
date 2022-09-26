@@ -1,6 +1,7 @@
-package com.example.showweather.feature.showweatger.data.di
+package com.example.showweather.feature.base.data.di
 
 import android.content.Context
+import com.example.showweather.feature.base.data.di.ContextProvider
 import com.example.showweather.util.DefaultDispatcher
 import com.example.showweather.util.IoDispatcher
 import com.example.showweather.util.MainDispatcher

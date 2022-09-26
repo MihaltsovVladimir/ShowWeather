@@ -1,6 +1,7 @@
 package com.example.showweather.feature.showweatger.presentation.viewmodel
 
 import com.example.showweather.R
+import com.example.showweather.feature.base.presentation.viewmodel.BaseViewModel
 import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
 import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
 import com.example.showweather.feature.showweatger.domain.usecase.GetWeatherUseCase

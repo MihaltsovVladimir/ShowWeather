@@ -1,10 +1,10 @@
-package com.example.showweather.feature.showweatger.presentation.activity
+package com.example.showweather.feature.base.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.showweather.databinding.ShowSpinnerActivityBinding
 
-abstract class BaseShowSpinnerActivity: AppCompatActivity() {
+abstract class BaseActivity: AppCompatActivity() {
 
     private lateinit var binding: ShowSpinnerActivityBinding
 
