@@ -1,13 +1,13 @@
 package com.example.showweather.feature.showweatger.presentation.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import com.example.showweather.R
 import com.example.showweather.databinding.ShowSpinnerFragmentBinding
 import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
 import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
@@ -46,10 +46,7 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
     override fun subscribe() {
         super.subscribe()
         launchAndRepeatWithViewLifecycle {
-            viewModel.listWeatherStateFlow.collectNotNull() {
-                Log.e("TAG", "subscribe:$it ")
-                populateForm(it)
-            }
+            viewModel.listWeatherStateFlow.collectNotNull() { populateForm(it) }
         }
     }
 
@@ -64,21 +61,13 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
                     position: Int,
                     id: Long
                 ) {
-                    var counter = 0 //todo
-                    viewModel.listWeatherStateFlow.value?.listItems?.map {
-                        it.isChecked = counter == position
-                        counter++
-                    }
+                    viewModel.savePositionSpinner(position)
                 }
             }
         b.firstFragmentButton.setOnClickListener {
-            viewModel.listWeatherStateFlow.value?.listItems?.forEach {
-                it.isChecked
-                Log.e("TAG", "onItemSelected: ${it.isChecked} ", )
-            }
             Toast.makeText(
                 context,
-                "Немного терпения, мы работаем на дааным функционалом",
+                context?.resources?.getString(R.string.coming_soon_text_button),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -86,9 +75,9 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
 
     private fun populateForm(showModel: ShowWeatherModel) {
         if (adapter == null) {
-            adapter = MyCustomSpinnerAdapter(requireContext(), showModel)
+            adapter = context?.let { MyCustomSpinnerAdapter(it, showModel) }
             b.firstFragmentSpinner.adapter = adapter
-        }
+        } else adapter?.updateData(showModel)
     }
 
     private fun createInitLocality(): List<PointModelEntity> = listOf(

@@ -13,5 +13,4 @@ object WeatherApiModule {
     @Provides
     fun provideWeatherApiService(retrofit: Retrofit): WeatherApiService =
         retrofit.create(WeatherApiService::class.java)
-
 }

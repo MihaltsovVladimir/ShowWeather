@@ -13,4 +13,4 @@ data class PointModelEntity(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "lon") val lon: String,
     @ColumnInfo(name = "lan") val lat: String
-): Parcelable
+) : Parcelable

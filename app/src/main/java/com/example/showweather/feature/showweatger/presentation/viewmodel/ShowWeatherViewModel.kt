@@ -31,11 +31,11 @@ class ShowWeatherViewModel @Inject constructor(
         launchFormInit(_listWeatherStateFlow) {
             useCase.getWeatherFromDatabase()
         }
-//        launchForm { _listWeatherStateFlow.emit(useCase.getWeatherFromDatabase()) }
     }
 
-    fun savePositionSpinner(id: String) {
-        launchForm { useCase.savePositionSpinner(id) }
+    fun savePositionSpinner(position: Int) {
+        markChoiceItem(position)
+        launchForm { _listWeatherStateFlow.value?.listItems?.let { useCase.savePositionSpinner(it) } }
     }
 
     fun getWeather() {
@@ -43,6 +43,13 @@ class ShowWeatherViewModel @Inject constructor(
         launchFormInit(_listWeatherStateFlow) {
             useCase.getWeather(context.resources.getString(R.string.api_key))
         }
-//        launchForm { _listWeatherStateFlow.emit(useCase.getWeather(context.resources.getString(R.string.api_key))) }
+    }
+
+    private fun markChoiceItem(position: Int) {
+        var counter = 0
+        _listWeatherStateFlow.value?.listItems?.map {
+            it.isChecked = counter == position
+            counter++
+        }
     }
 }

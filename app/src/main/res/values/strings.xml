@@ -2,5 +2,6 @@
     <string name="app_name">ShowWeather</string>
     <string name="api_key">6bc60e047bb84ca0197b8959f9f62e8c</string>
     <string name="button_text">Найти город и добавить в сипинер</string>
-    <string name="farengate">F</string>
+    <string name="fahrenheit">F</string>
+    <string name="coming_soon_text_button">Немного терпения, мы работаем на дааным функционалом</string>
 </resources>

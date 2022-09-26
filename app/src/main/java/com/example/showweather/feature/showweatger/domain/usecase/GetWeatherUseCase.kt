@@ -2,6 +2,7 @@ package com.example.showweather.feature.showweatger.domain.usecase
 
 import com.example.showweather.feature.showweatger.data.repository.DatabaseRepository
 import com.example.showweather.feature.showweatger.data.repository.NetworkRepository
+import com.example.showweather.feature.showweatger.domain.model.CityItemModel
 import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
 import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class GetWeatherUseCase @Inject constructor(
             dataRepository.insertPointAll(listCity)
     }
 
-    suspend fun savePositionSpinner(id: String) = dataRepository.savePositionSpinner(id)
+    suspend fun savePositionSpinner(listItems: List<CityItemModel>) = dataRepository.savePositionSpinner(listItems)
 
 
     suspend fun getWeatherFromDatabase(): ShowWeatherModel = dataRepository.getShowWeatherModel()

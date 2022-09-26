@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object WeatherDatabaseModule {
 
-    const val WEATHER_DATABASE_NAME: String = "WEATHER_DATABASE_NAME"
+    private const val WEATHER_DATABASE_NAME: String = "WEATHER_DATABASE_NAME"
 
     @Provides
     @Singleton

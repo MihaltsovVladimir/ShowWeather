@@ -7,4 +7,4 @@ import kotlinx.parcelize.Parcelize
 data class ShowWeatherModel(
 
     val listItems: List<CityItemModel>
-): Parcelable
+) : Parcelable

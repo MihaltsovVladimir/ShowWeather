@@ -17,7 +17,7 @@ class MyCustomSpinnerAdapter(
 
     fun updateData(newWeatherModel: ShowWeatherModel) {
         weatherModel = newWeatherModel
-        //todo
+        notifyDataSetChanged()
     }
 
     override fun getCount(): Int = weatherModel.listItems.size

@@ -11,4 +11,4 @@ import kotlinx.parcelize.Parcelize
 data class TempItemModelEntity(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "temp") val temp: String
-): Parcelable
+) : Parcelable

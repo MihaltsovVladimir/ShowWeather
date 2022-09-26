@@ -28,8 +28,8 @@ class DatabaseHelperImpl @Inject constructor(
 
     override suspend fun getPointModelAll(): List<PointModelEntity> = weatherDao.getPointModelAll()
 
-    override suspend fun savePositionSpinner(id: String) {
-        //todo
+    override suspend fun savePositionSpinner(listItems: List<CityItemModel>) {
+        //todo save to db here
     }
 
     override suspend fun insertData(response: WeatherResponse, point: PointModelEntity) {
@@ -46,7 +46,6 @@ class DatabaseHelperImpl @Inject constructor(
         weatherDao.deletePointModelAll()
         weatherDao.deleteTempItemModelAll()
     }
-
 
     private fun getShowWeatherModel(
         points: List<PointModelEntity>,

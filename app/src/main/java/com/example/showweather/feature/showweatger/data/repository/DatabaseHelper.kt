@@ -1,6 +1,7 @@
 package com.example.showweather.feature.showweatger.data.repository
 
 import com.example.showweather.feature.showweatger.data.dto.response.WeatherResponse
+import com.example.showweather.feature.showweatger.domain.model.CityItemModel
 import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
 import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
 
@@ -12,7 +13,7 @@ interface DatabaseHelper {
 
     suspend fun getPointModelAll(): List<PointModelEntity>
 
-    suspend fun savePositionSpinner(id: String)
+    suspend fun savePositionSpinner(listItems: List<CityItemModel>)
 
     suspend fun insertData(response: WeatherResponse, point: PointModelEntity)
 
