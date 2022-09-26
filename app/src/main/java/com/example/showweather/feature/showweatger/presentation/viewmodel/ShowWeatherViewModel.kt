@@ -53,4 +53,8 @@ class ShowWeatherViewModel @Inject constructor(
             counter++
         }
     }
+
+    fun clearDatabase() {
+        launchForm { useCase.clearDatabase() }
+    }
 }

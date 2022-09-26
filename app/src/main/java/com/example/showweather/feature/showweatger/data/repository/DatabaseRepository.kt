@@ -17,4 +17,6 @@ class DatabaseRepository @Inject constructor(
 
     suspend fun savePositionSpinner(listItems: List<CityItemModel>) =
         helper.savePositionSpinner(listItems)
+
+    suspend fun clearDatabase() = helper.clearDataBase()
 }

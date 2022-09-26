@@ -75,6 +75,11 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
         } else adapter?.updateData(showModel)
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.clearDatabase()
+    }
+
     private fun createInitLocality(): List<PointModelEntity> = listOf(
         PointModelEntity(UUID.randomUUID().toString(), "Gomel", "52.353917", "31.11178144"),
         PointModelEntity(UUID.randomUUID().toString(), "Minsk", "53.902284", "27.561831"),

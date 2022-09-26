@@ -18,7 +18,8 @@ class GetWeatherUseCase @Inject constructor(
             dataRepository.insertPointAll(listCity)
     }
 
-    suspend fun savePositionSpinner(listItems: List<CityItemModel>) = dataRepository.savePositionSpinner(listItems)
+    suspend fun savePositionSpinner(listItems: List<CityItemModel>) =
+        dataRepository.savePositionSpinner(listItems)
 
 
     suspend fun getWeatherFromDatabase(): ShowWeatherModel = dataRepository.getShowWeatherModel()
@@ -28,5 +29,9 @@ class GetWeatherUseCase @Inject constructor(
         networkRepository.getWeather(listCity, key).apply {
             return networkRepository.getWeather(listCity, key)
         }
+    }
+
+    suspend fun clearDatabase() {
+        dataRepository.clearDatabase()
     }
 }
