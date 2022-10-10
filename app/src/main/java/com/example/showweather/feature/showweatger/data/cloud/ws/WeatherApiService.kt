@@ -1,4 +1,4 @@
-package com.example.showweather.feature.showweatger.data.ws
+package com.example.showweather.feature.showweatger.data.cloud.ws
 
 import com.example.showweather.feature.showweatger.data.dto.response.WeatherResponse
 import retrofit2.http.GET
@@ -10,6 +10,6 @@ interface WeatherApiService {
     suspend fun getListWeatherItems(
         @Query("lat") lat: String,
         @Query("lon") lon: String,
-        @Query("appid") appid: String
+        @Query("appid") appid: String,
     ): WeatherResponse
 }

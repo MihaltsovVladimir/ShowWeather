@@ -1,21 +1,19 @@
 package com.example.showweather.feature.showweatger.presentation.fragment
 
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.example.showweather.R
 import com.example.showweather.databinding.ShowSpinnerFragmentBinding
 import com.example.showweather.feature.base.presentation.fragment.BaseFragment
 import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
-import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
 import com.example.showweather.feature.showweatger.presentation.adapter.MyCustomSpinnerAdapter
 import com.example.showweather.feature.showweatger.presentation.viewmodel.ShowWeatherViewModel
 import com.example.showweather.util.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragmentBinding>() {
@@ -26,11 +24,12 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
 
     override fun createViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?
+        container: ViewGroup?,
     ) = ShowSpinnerFragmentBinding.inflate(inflater, container, false)
 
-    override fun initForm() {
-        viewModel.addCityToRoom(createInitLocality())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
     }
 
     override fun onReadyToRequests() {
@@ -38,10 +37,17 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
         viewModel.getWeather()
     }
 
+    private fun initView() {
+        viewModel.getDataFromDatabase()
+    }
+
     override fun subscribe() {
         super.subscribe()
         launchAndRepeatWithViewLifecycle {
-            viewModel.listWeatherStateFlow.collectNotNull() { populateForm(it) }
+            viewModel.listWeatherStateFlow.collectNotNull() {
+                Log.e("TAG", "subscribe: _____________________________________")
+                populateForm(it)
+            }
         }
     }
 
@@ -54,17 +60,13 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
                     parent: AdapterView<*>?,
                     view: View?,
                     position: Int,
-                    id: Long
+                    id: Long,
                 ) {
                     viewModel.savePositionSpinner(position)
                 }
             }
         b.firstFragmentButton.setOnClickListener {
-            Toast.makeText(
-                context,
-                context?.resources?.getString(R.string.coming_soon_text_button),
-                Toast.LENGTH_SHORT
-            ).show()
+
         }
     }
 
@@ -74,15 +76,4 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
             b.firstFragmentSpinner.adapter = adapter
         } else adapter?.updateData(showModel)
     }
-
-    override fun onPause() {
-        super.onPause()
-        viewModel.clearDatabase()
-    }
-
-    private fun createInitLocality(): List<PointModelEntity> = listOf(
-        PointModelEntity(UUID.randomUUID().toString(), "Gomel", "52.353917", "31.11178144"),
-        PointModelEntity(UUID.randomUUID().toString(), "Minsk", "53.902284", "27.561831"),
-        PointModelEntity(UUID.randomUUID().toString(), "Tokio", "49.088732", "33.413770")
-    )
 }

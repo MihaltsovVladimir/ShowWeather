@@ -1,14 +1,16 @@
 package com.example.showweather.feature.base.data.di
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import retrofit2.Converter
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -17,36 +19,32 @@ object RetrofitModule {
 
     @Provides
     fun provideRetrofitBuilder(
-        gsonConverterFactory: GsonConverterFactory
+        jsonConverterFactory: Converter.Factory,
     ): Retrofit.Builder = Retrofit.Builder()
-        .addConverterFactory(gsonConverterFactory)
+        .addConverterFactory(jsonConverterFactory)
         .baseUrl("https://api.openweathermap.org/data/2.5/")
-
 
     @Provides
     @Singleton
     fun provideRetrofit(
         builder: Retrofit.Builder,
-        okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient,
     ): Retrofit = builder
         .client(okHttpClient)
         .build()
 
+    @ExperimentalSerializationApi
     @Provides
     @Singleton
-    fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory {
-        return GsonConverterFactory.create(gson)
-    }
+    fun provideJsonConverter(json: Json) =
+        json.asConverterFactory("application/json".toMediaType())
 
     @Provides
     @Singleton
-    fun provideGson(gsonBuilder: GsonBuilder): Gson {
-        return gsonBuilder.create()
-    }
-
-    @Provides
-    @Singleton
-    fun provideGsonBuilder(): GsonBuilder {
-        return GsonBuilder()
-    }
+    fun provideJson() =
+        Json {
+            ignoreUnknownKeys = true
+            prettyPrint = true
+            isLenient = true
+        }
 }

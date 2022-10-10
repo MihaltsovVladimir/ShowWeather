@@ -33,9 +33,9 @@ class MyCustomSpinnerAdapter(
             mConvertView = inflater.inflate(R.layout.spinner_item, p2, false)
         }
         val nameCity = mConvertView?.findViewById(R.id.name_city) as TextView
-        nameCity.text = weatherModel.listItems[p0].cityPoint?.name
+        nameCity.text = weatherModel.listItems[p0].name
         val weatherCity = mConvertView.findViewById(R.id.weather_city) as TextView
-        weatherCity.text = weatherModel.listItems[p0].cityTemp?.temp.toString()
+        weatherCity.text = weatherModel.listItems[p0].temperature
         return mConvertView
     }
 }

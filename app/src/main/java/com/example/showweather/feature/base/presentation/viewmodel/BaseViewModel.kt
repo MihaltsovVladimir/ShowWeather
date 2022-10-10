@@ -24,14 +24,14 @@ open class BaseViewModel(
     fun <T : Any> launchFormInit(
         flow: MutableStateFlow<T?>,
         customErrorFlow: MutableSharedFlow<ErrorModel?>? = null,
-        block: suspend CoroutineScope.() -> T
+        block: suspend CoroutineScope.() -> T,
     ) = launchSupervisorScope {
         processFormInitJobWithFlow(customErrorFlow, block).collectLatest { flow.emit(it) }
     }
 
     private fun <T : Any> processFormInitJobWithFlow(
         customErrorFlow: MutableSharedFlow<ErrorModel?>? = null,
-        block: suspend CoroutineScope.() -> T
+        block: suspend CoroutineScope.() -> T,
     ) = processJobWithFlow(customErrorFlow = customErrorFlow, block = block)
 
 
@@ -43,7 +43,7 @@ open class BaseViewModel(
     private fun <T : Any> processJobWithFlow(
         formInit: Boolean = true,
         customErrorFlow: MutableSharedFlow<ErrorModel?>? = null,
-        block: suspend CoroutineScope.() -> T
+        block: suspend CoroutineScope.() -> T,
     ) = flow {
         emit(block.invoke(scope))
     }.catch {

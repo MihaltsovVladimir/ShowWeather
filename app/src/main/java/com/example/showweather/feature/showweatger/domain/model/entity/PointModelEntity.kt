@@ -9,8 +9,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "city_position_table")
 data class PointModelEntity(
-    @PrimaryKey val id: String,
-    @ColumnInfo(name = "name") val name: String,
+    @PrimaryKey @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "lon") val lon: String,
-    @ColumnInfo(name = "lan") val lat: String
+    @ColumnInfo(name = "lan") val lat: String,
+    @ColumnInfo(name = "temperature") var temperature: String?,
+    @ColumnInfo(name = "isChecked") var isChecked: Boolean,
 ) : Parcelable

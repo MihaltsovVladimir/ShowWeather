@@ -1,4 +1,4 @@
-package com.example.showweather.feature.showweatger.data.db
+package com.example.showweather.feature.showweatger.data.cache
 
 import android.content.Context
 import androidx.room.Room

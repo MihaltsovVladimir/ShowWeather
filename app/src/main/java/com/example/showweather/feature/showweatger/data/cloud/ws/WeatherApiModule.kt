@@ -1,4 +1,4 @@
-package com.example.showweather.feature.showweatger.data.ws
+package com.example.showweather.feature.showweatger.data.cloud.ws
 
 import dagger.Module
 import dagger.Provides
