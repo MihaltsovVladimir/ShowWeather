@@ -1,6 +1,5 @@
 package com.example.showweather.feature.showweatger.presentation.viewmodel
 
-import android.util.Log
 import com.example.showweather.R
 import com.example.showweather.feature.base.presentation.viewmodel.BaseViewModel
 import com.example.showweather.feature.showweatger.domain.WeatherInteractor
@@ -30,7 +29,6 @@ class ShowWeatherViewModel @Inject constructor(
 
     fun getDataFromDatabase() {
         launchFormInit(_listWeatherStateFlow) {
-            Log.e("TAG", "getWeather:  old Data")
             interactor.getWeather(context.resources.getString(R.string.api_key), true)
         }
     }
@@ -46,7 +44,6 @@ class ShowWeatherViewModel @Inject constructor(
 
     fun getWeather() {
         launchFormInit(_listWeatherStateFlow) {
-            Log.e("TAG", "getWeather:  new Data")
             interactor.getWeather(context.resources.getString(R.string.api_key), false)
         }
     }

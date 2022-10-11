@@ -15,8 +15,6 @@ interface WeatherInteractor {
     class Base @Inject constructor(
 
         private val repository: WeatherRepository.Base,
-//        private val handleRequest: HandleRequest,
-//        private val numberFactDetails: NumberFactDetails.Save,
     ) : WeatherInteractor {
         override suspend fun addCityRoom() = repository.initRoom()
 
