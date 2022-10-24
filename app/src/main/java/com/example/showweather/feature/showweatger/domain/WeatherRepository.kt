@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 interface WeatherRepository {
 
-    suspend fun getWeather(key: String, isFromDatabase: Boolean): ShowWeatherModel
+    suspend fun getWeather(isFromDatabase: Boolean): ShowWeatherModel
 
     class Base @Inject constructor(
 
@@ -22,16 +22,16 @@ interface WeatherRepository {
             }
         }
 
-        override suspend fun getWeather(key: String, isFromDatabase: Boolean): ShowWeatherModel {
+        override suspend fun getWeather(isFromDatabase: Boolean): ShowWeatherModel {
             val dataSource = if (isFromDatabase) dataRepository else cloudRepository
-            return dataSource.getWeather(key)
+            return dataSource.getWeather()
         }
 
         suspend fun savePositionSpinner(checkedItem: PointModelEntity) =
             dataRepository.savePositionSpinner(checkedItem)
 
         private fun createInitLocality(): List<PointModelEntity> = listOf(
-            PointModelEntity("Gomel", "52.353917", "31.11178144", null, true),
+            PointModelEntity("Gomel", "52.353917", "31.11178144", null, false),
             PointModelEntity("Minsk", "53.902284", "27.561831", null, false),
             PointModelEntity("Tokio", "49.088732", "33.413770", null, false)
         )

@@ -1,4 +1,4 @@
-package com.example.showweather.feature.showweatger.presentation.adapter
+package com.example.showweather.feature.base.presentation.view
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
 class MyCustomSpinnerAdapter(
 
     private val context: Context,
-    private var weatherModel: ShowWeatherModel
+    private var weatherModel: ShowWeatherModel,
 ) : BaseAdapter() {
 
     fun updateData(newWeatherModel: ShowWeatherModel) {

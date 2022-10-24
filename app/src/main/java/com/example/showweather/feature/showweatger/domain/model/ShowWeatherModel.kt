@@ -8,4 +8,15 @@ import kotlinx.parcelize.Parcelize
 data class ShowWeatherModel(
 
     val listItems: List<PointModelEntity>,
-) : Parcelable
+) : Parcelable {
+
+    fun getIndexCheckedItem(): Int = listItems.indexOf(listItems.find { it.isChecked })
+
+    fun setCheckToItem(position: Int) {
+        listItems.mapIndexed { index, pointModelEntity ->
+            pointModelEntity.isChecked = index == position
+        }
+    }
+
+    fun getItem(position: Int): PointModelEntity = listItems[position]
+}

@@ -8,7 +8,7 @@ interface WeatherInteractor {
 
     suspend fun addCityRoom()
 
-    suspend fun getWeather(key: String, isFromDatabase: Boolean): ShowWeatherModel
+    suspend fun getWeather(isFromDatabase: Boolean): ShowWeatherModel
 
     suspend fun savePositionSpinner(checkedItem: PointModelEntity)
 
@@ -18,8 +18,8 @@ interface WeatherInteractor {
     ) : WeatherInteractor {
         override suspend fun addCityRoom() = repository.initRoom()
 
-        override suspend fun getWeather(key: String, isFromDatabase: Boolean) =
-            repository.getWeather(key, isFromDatabase)
+        override suspend fun getWeather(isFromDatabase: Boolean) =
+            repository.getWeather(isFromDatabase)
 
         override suspend fun savePositionSpinner(checkedItem: PointModelEntity) =
             repository.savePositionSpinner(checkedItem)

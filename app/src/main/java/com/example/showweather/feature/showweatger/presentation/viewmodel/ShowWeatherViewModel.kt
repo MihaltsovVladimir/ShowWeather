@@ -1,9 +1,9 @@
 package com.example.showweather.feature.showweatger.presentation.viewmodel
 
-import com.example.showweather.R
 import com.example.showweather.feature.base.presentation.viewmodel.BaseViewModel
 import com.example.showweather.feature.showweatger.domain.WeatherInteractor
 import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
+import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
 import com.example.showweather.util.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -29,30 +29,20 @@ class ShowWeatherViewModel @Inject constructor(
 
     fun getDataFromDatabase() {
         launchFormInit(_listWeatherStateFlow) {
-            interactor.getWeather(context.resources.getString(R.string.api_key), true)
+            interactor.getWeather(true)
         }
     }
 
-    fun savePositionSpinner(position: Int) {
-        markChoiceItem(position)
-        launchForm {
-//            _listWeatherStateFlow.value?.listItems?.let {
-//            it.find {item -> item.isChecked }
-//            interactor.savePositionSpinner(it.find {item -> item.isChecked }) }
+    fun savePositionSpinner(position: PointModelEntity) {
+        launchFormInit(_listWeatherStateFlow) {
+            interactor.savePositionSpinner(position)
+            interactor.getWeather(true)
         }
     }
 
     fun getWeather() {
         launchFormInit(_listWeatherStateFlow) {
-            interactor.getWeather(context.resources.getString(R.string.api_key), false)
-        }
-    }
-
-    private fun markChoiceItem(position: Int) {
-        var counter = 0
-        _listWeatherStateFlow.value?.listItems?.map {
-            it.isChecked = counter == position
-            counter++
+            interactor.getWeather(false)
         }
     }
 }

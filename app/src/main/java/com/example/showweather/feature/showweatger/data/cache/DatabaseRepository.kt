@@ -12,7 +12,7 @@ interface DatabaseRepository : FetchWeather {
 
     suspend fun getPointModelAll(): List<PointModelEntity>
 
-    suspend fun getWeather(): ShowWeatherModel
+    override suspend fun getWeather(): ShowWeatherModel
 
     suspend fun savePositionSpinner(checkedItem: PointModelEntity)
 
@@ -25,13 +25,11 @@ interface DatabaseRepository : FetchWeather {
 
         override suspend fun getWeather() = helper.getPointModelAll().map()
 
-        override suspend fun getWeather(key: String) = helper.getPointModelAll().map()
-
         override suspend fun savePositionSpinner(checkedItem: PointModelEntity) =
             helper.savePositionSpinner(checkedItem)
     }
 }
 
 interface FetchWeather {
-    suspend fun getWeather(key: String): ShowWeatherModel
+    suspend fun getWeather(): ShowWeatherModel
 }

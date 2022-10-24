@@ -10,13 +10,10 @@
         android:layout_marginHorizontal="8dp"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatSpinner
+        <com.example.showweather.feature.base.presentation.view.SpinnerView
             android:id="@+id/first_fragment_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_secondary"
-            android:popupBackground="@drawable/blue_outline_teal_background"
-            android:spinnerMode="dropdown" />
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/first_fragment_button"

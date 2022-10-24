@@ -28,7 +28,7 @@ interface DatabaseHelper {
         }
 
         override suspend fun savePositionSpinner(checkedItem: PointModelEntity) {
-            TODO("Not yet implemented")
+            weatherDao.insert(checkedItem)
         }
     }
 }
