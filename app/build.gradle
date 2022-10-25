@@ -8,12 +8,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
     namespace 'com.example.showweather'
     defaultConfig {
         applicationId "com.example.showweather"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -64,8 +64,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$Retrofit_version"
 
     // Kotlin
-    def kotlin = "1.6.0"
-    implementation "androidx.core:core-ktx:1.8.0"
+    def kotlin = "1.7.20"
+    implementation "androidx.core:core-ktx:1.9.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"
 
     //Navigation
@@ -90,7 +90,7 @@ dependencies {
     def kotlinxJson = "1.4.0"
     def jsonConverter = "0.8.0"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxJson"
-    implementation "org.jetbrains.kotlin:kotlin-serialization:1.6.10"
+    implementation "org.jetbrains.kotlin:kotlin-serialization:$kotlin"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$jsonConverter"
 
     //Room
