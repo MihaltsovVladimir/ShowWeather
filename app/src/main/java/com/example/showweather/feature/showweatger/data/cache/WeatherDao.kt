@@ -12,11 +12,8 @@ interface WeatherDao {
     @Query("SELECT * FROM city_position_table")
     fun getPointModelAll(): List<PointModelEntity>
 
-    @Query("DELETE FROM city_position_table WHERE name in (:names)")
-    fun deletePointModelEntity(names: List<String>)
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg point: PointModelEntity)
+    fun insert(point: PointModelEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCityAll(points: List<PointModelEntity>)
