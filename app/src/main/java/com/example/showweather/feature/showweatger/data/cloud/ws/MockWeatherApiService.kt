@@ -13,7 +13,7 @@ class MockWeatherApiService : WeatherApiService {
         wind = WeatherResponse.WindItem(1.47, 259, 1.56),
         clouds = WeatherResponse.CloudsItem(96),
         dt = 1667328750,
-        sys = WeatherResponse.SysItem(1, 7497, "IR", 1667270084, 1667310066),
+        sys = WeatherResponse.SysItem("IR", 1667270084, 1667310066),
         timezone = 12600,
         id = 133595,
         name = "Gerāsh",
