@@ -12,7 +12,7 @@ interface DatabaseHelper {
 
     suspend fun getPointModelAll(): List<PointModelEntity>
 
-    suspend fun insertData(response: PointModelEntity)
+    suspend fun insertData(item: PointModelEntity)
 
     suspend fun savePositionSpinner(checkedItem: PointModelEntity)
 
@@ -28,12 +28,14 @@ interface DatabaseHelper {
             weatherDao.getPointModelAll()
         }
 
-        override suspend fun insertData(response: PointModelEntity) = mutex.withLock {
-            weatherDao.insert(response)
+        override suspend fun insertData(item: PointModelEntity) = mutex.withLock {
+            weatherDao.insert(item)
         }
 
         override suspend fun savePositionSpinner(checkedItem: PointModelEntity) = mutex.withLock {
-            weatherDao.insert(checkedItem)
+            val listItems = weatherDao.getPointModelAll().toMutableList()
+            listItems.map { it.isChecked = it.name == checkedItem.name }
+            weatherDao.insertCityAll(listItems)
         }
     }
 }

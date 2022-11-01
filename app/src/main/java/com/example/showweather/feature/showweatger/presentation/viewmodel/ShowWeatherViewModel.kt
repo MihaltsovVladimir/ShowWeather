@@ -27,22 +27,22 @@ class ShowWeatherViewModel @Inject constructor(
         launchForm { interactor.addCityRoom() }
     }
 
-    fun getDataFromDatabase() {
+    fun getDataFromDatabase(apiKey: String) {
         launchFormInit(_listWeatherStateFlow) {
-            interactor.getWeather(true)
+            interactor.getWeather(apiKey, true)
         }
     }
 
-    fun savePositionSpinner(position: PointModelEntity) {
+    fun savePositionSpinner(apiKey: String, position: PointModelEntity) {
         launchFormInit(_listWeatherStateFlow) {
             interactor.savePositionSpinner(position)
-            interactor.getWeather(true)
+            interactor.getWeather(apiKey, true)
         }
     }
 
-    fun getWeather() {
+    fun getWeather(apiKey: String) {
         launchFormInit(_listWeatherStateFlow) {
-            interactor.getWeather(false)
+            interactor.getWeather(apiKey, false)
         }
     }
 }

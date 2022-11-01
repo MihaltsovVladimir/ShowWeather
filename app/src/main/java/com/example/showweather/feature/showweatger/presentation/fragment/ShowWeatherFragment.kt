@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.example.showweather.R
 import com.example.showweather.databinding.ShowSpinnerFragmentBinding
 import com.example.showweather.feature.base.presentation.fragment.BaseFragment
 import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
@@ -16,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragmentBinding>() {
 
     override val viewModel: ShowWeatherViewModel by activityViewModels()
+    private val apiKey: String by lazy { getString(R.string.api_key) }
 
     override fun createViewBinding(
         inflater: LayoutInflater,
@@ -29,11 +31,11 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
 
     override fun onReadyToRequests() {
         super.onReadyToRequests()
-        viewModel.getWeather()
+        viewModel.getWeather(apiKey)
     }
 
     private fun initView() {
-        viewModel.getDataFromDatabase()
+        viewModel.getDataFromDatabase(apiKey)
     }
 
     override fun subscribe() {
@@ -46,7 +48,7 @@ class ShowWeatherFragment : BaseFragment<ShowWeatherViewModel, ShowSpinnerFragme
     }
 
     override fun setListeners() {
-        b.firstFragmentSpinner.checkedItem = { viewModel.savePositionSpinner(it) }
+        b.firstFragmentSpinner.checkedItem = { viewModel.savePositionSpinner(apiKey, it) }
         b.firstFragmentButton.setOnClickListener {}
     }
 

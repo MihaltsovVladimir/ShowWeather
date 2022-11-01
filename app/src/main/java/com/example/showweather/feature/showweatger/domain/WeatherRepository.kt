@@ -1,19 +1,19 @@
 package com.example.showweather.feature.showweatger.domain
 
-import com.example.showweather.feature.showweatger.data.cache.DatabaseRepository
-import com.example.showweather.feature.showweatger.data.cloud.CloudRepository
+import com.example.showweather.feature.showweatger.data.cache.CacheDataSource
+import com.example.showweather.feature.showweatger.data.cloud.CloudDataSource
 import com.example.showweather.feature.showweatger.domain.model.ShowWeatherModel
 import com.example.showweather.feature.showweatger.domain.model.entity.PointModelEntity
 import javax.inject.Inject
 
 interface WeatherRepository {
 
-    suspend fun getWeather(isFromDatabase: Boolean): ShowWeatherModel
+    suspend fun getWeather(apiKey: String, isFromDatabase: Boolean): ShowWeatherModel
 
     class Base @Inject constructor(
 
-        private val dataRepository: DatabaseRepository.Base,
-        private val cloudRepository: CloudRepository.Base,
+        private val dataRepository: CacheDataSource.Base,
+        private val cloudRepository: CloudDataSource.Base,
     ) : WeatherRepository {
 
         suspend fun initRoom() {
@@ -22,9 +22,9 @@ interface WeatherRepository {
             }
         }
 
-        override suspend fun getWeather(isFromDatabase: Boolean): ShowWeatherModel {
+        override suspend fun getWeather(apiKey: String, isFromDatabase: Boolean): ShowWeatherModel {
             val dataSource = if (isFromDatabase) dataRepository else cloudRepository
-            return dataSource.getWeather()
+            return dataSource.getWeather(apiKey)
         }
 
         suspend fun savePositionSpinner(checkedItem: PointModelEntity) =

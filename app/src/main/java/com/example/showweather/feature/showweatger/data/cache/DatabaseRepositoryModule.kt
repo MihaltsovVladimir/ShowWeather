@@ -13,5 +13,5 @@ object DatabaseRepositoryModule {
 
     @Provides
     @Singleton
-    fun provideDatabaseRepository(helper: DatabaseHelper.Base) = DatabaseRepository.Base(helper)
+    fun provideDatabaseRepository(helper: DatabaseHelper.Base) = CacheDataSource.Base(helper)
 }
